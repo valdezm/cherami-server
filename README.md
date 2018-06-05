@@ -6,10 +6,21 @@ This repo contains the source code of Cherami server, cross-zone replicator serv
 
 Getting started
 ---------------
+
+Using:
+Go version 1.8 [`issue with newer Go version`](https://github.com/uber/cherami-server/issues/350)
+`go version go1.8 linux/amd64`
+
+Built on Ubuntu:
+'Ubuntu 14.04.5 LTS'
+
+GCC version:
+`gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3)` [`issue with GCC 4.8.4 and stdatomic.h`](https://github.com/uber/cherami-server/issues/350)
+
 To get cherami-server:
 
 ```
-git clone git@github.com:uber/cherami-server.git $GOPATH/src/github.com/valdezm/cherami-server
+git clone git@github.com:valdezm/cherami-server.git $GOPATH/src/github.com/valdezm/cherami-server
 ```
 
 Build
