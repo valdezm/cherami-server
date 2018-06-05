@@ -24,8 +24,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/storage/manyrocks"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/storage/manyrocks"
 )
 
 func (s *StorageSuite) TestManyRocksRandomKeys() {

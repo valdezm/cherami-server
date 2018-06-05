@@ -9,7 +9,7 @@ Getting started
 To get cherami-server:
 
 ```
-git clone git@github.com:uber/cherami-server.git $GOPATH/src/github.com/uber/cherami-server
+git clone git@github.com:uber/cherami-server.git $GOPATH/src/github.com/valdezm/cherami-server
 ```
 
 Build
@@ -66,4 +66,4 @@ Interested in learning more about Cherami? Read the blog post:
 
 License
 -------
-MIT License, please see [LICENSE](https://github.com/uber/cherami-server/blob/master/LICENSE) for details.
+MIT License, please see [LICENSE](https://github.com/valdezm/cherami-server/blob/master/LICENSE) for details.

@@ -22,7 +22,7 @@ package gometricsexporter
 
 import (
 	gometrics "github.com/rcrowley/go-metrics"
-	m "github.com/uber/cherami-server/common/metrics"
+	m "github.com/valdezm/cherami-server/common/metrics"
 	"time"
 )
 

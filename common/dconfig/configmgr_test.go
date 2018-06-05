@@ -29,7 +29,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"github.com/uber-common/bark"
-	mc "github.com/uber/cherami-server/clients/metadata"
+	mc "github.com/valdezm/cherami-server/clients/metadata"
 	m "github.com/uber/cherami-thrift/.generated/go/metadata"
 )
 

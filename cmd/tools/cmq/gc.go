@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gocql/gocql"
-	"github.com/uber/cherami-server/common/set"
+	"github.com/valdezm/cherami-server/common/set"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 	"github.com/urfave/cli"
 )

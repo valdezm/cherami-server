@@ -27,7 +27,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/uber/cherami-server/common/configure"
+	"github.com/valdezm/cherami-server/common/configure"
 )
 
 // BackupCron represents a background

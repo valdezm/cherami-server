@@ -29,10 +29,10 @@ import (
 
 	"github.com/pborman/uuid"
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/common/metrics"
-	"github.com/uber/cherami-server/services/storehost/load"
-	"github.com/uber/cherami-server/storage"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/services/storehost/load"
+	"github.com/valdezm/cherami-server/storage"
 	"github.com/uber/cherami-thrift/.generated/go/controller"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 )

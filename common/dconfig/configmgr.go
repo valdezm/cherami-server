@@ -31,7 +31,7 @@ import (
 	"time"
 
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
+	"github.com/valdezm/cherami-server/common"
 	m "github.com/uber/cherami-thrift/.generated/go/metadata"
 )
 

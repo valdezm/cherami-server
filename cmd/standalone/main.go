@@ -27,7 +27,7 @@ import (
 	"sync"
 
 	"github.com/codegangsta/cli"
-	"github.com/uber/cherami-server/cmd/servicecmd"
+	"github.com/valdezm/cherami-server/cmd/servicecmd"
 )
 
 var wg sync.WaitGroup

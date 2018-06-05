@@ -35,7 +35,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/uber/cherami-server/tools/awscloud"
+	"github.com/valdezm/cherami-server/tools/awscloud"
 )
 
 // BackupTask runs a single run

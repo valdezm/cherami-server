@@ -3,7 +3,7 @@ package replicator
 import (
 	"sync/atomic"
 
-	"github.com/uber/cherami-server/common"
+	"github.com/valdezm/cherami-server/common"
 	"github.com/uber/cherami-thrift/.generated/go/admin"
 	"github.com/uber/tchannel-go/thrift"
 )

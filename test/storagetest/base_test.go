@@ -29,7 +29,7 @@ import (
 	"github.com/pborman/uuid"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/suite"
-	"github.com/uber/cherami-server/storage"
+	"github.com/valdezm/cherami-server/storage"
 )
 
 type StorageSuite struct {

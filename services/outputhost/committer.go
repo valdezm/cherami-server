@@ -21,7 +21,7 @@
 package outputhost
 
 import (
-	"github.com/uber/cherami-server/common"
+	"github.com/valdezm/cherami-server/common"
 	"sync"
 )
 

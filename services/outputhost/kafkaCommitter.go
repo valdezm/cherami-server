@@ -27,7 +27,7 @@ import (
 
 	sc "github.com/bsm/sarama-cluster"
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
+	"github.com/valdezm/cherami-server/common"
 )
 
 var outputHostStartTime = time.Now()

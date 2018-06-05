@@ -23,7 +23,7 @@ package common
 import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"github.com/uber/cherami-server/common/configure"
+	"github.com/valdezm/cherami-server/common/configure"
 	"testing"
 )
 

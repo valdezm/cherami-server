@@ -27,9 +27,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/common/metrics"
-	"github.com/uber/cherami-server/services/controllerhost/load"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/services/controllerhost/load"
 	c "github.com/uber/cherami-thrift/.generated/go/controller"
 	"github.com/uber/cherami-thrift/.generated/go/metadata"
 	"github.com/uber/cherami-thrift/.generated/go/shared"

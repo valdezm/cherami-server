@@ -23,7 +23,7 @@ package retentionmgr
 import (
 	"time"
 
-	"github.com/uber/cherami-server/common"
+	"github.com/valdezm/cherami-server/common"
 	"github.com/uber/cherami-thrift/.generated/go/metadata"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 	"github.com/uber/cherami-thrift/.generated/go/store"

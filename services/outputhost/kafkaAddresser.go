@@ -25,7 +25,7 @@ import (
 	"sync"
 
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
+	"github.com/valdezm/cherami-server/common"
 )
 
 // Kafka Addresser store address encoding scheme

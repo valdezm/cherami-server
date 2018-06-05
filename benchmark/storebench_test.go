@@ -29,7 +29,7 @@ import (
 
 	_ "github.com/apache/thrift/lib/go/thrift"
 	log "github.com/sirupsen/logrus"
-	"github.com/uber/cherami-server/common"
+	"github.com/valdezm/cherami-server/common"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 
 	"testing"

@@ -1,4 +1,4 @@
-package: github.com/uber/cherami-server
+package: github.com/valdezm/cherami-server
 import:
 - package: github.com/sirupsen/logrus
 - package: github.com/apache/thrift

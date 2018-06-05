@@ -30,7 +30,7 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	"github.com/uber/cherami-server/common/configure"
+	"github.com/valdezm/cherami-server/common/configure"
 )
 
 // HTTPHandler contains the http handlers

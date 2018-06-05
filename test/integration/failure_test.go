@@ -34,9 +34,9 @@ import (
 	"testing"
 
 	client "github.com/uber/cherami-client-go/client/cherami"
-	"github.com/uber/cherami-server/common"
-	localMetrics "github.com/uber/cherami-server/common/metrics"
-	"github.com/uber/cherami-server/services/controllerhost"
+	"github.com/valdezm/cherami-server/common"
+	localMetrics "github.com/valdezm/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/services/controllerhost"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 )

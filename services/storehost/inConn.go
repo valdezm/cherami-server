@@ -26,10 +26,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/common/metrics"
-	"github.com/uber/cherami-server/storage"
-	storeStream "github.com/uber/cherami-server/stream"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/storage"
+	storeStream "github.com/valdezm/cherami-server/stream"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 	"github.com/uber/cherami-thrift/.generated/go/store"
 

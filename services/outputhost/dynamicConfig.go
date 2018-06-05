@@ -20,7 +20,7 @@
 
 package outputhost
 
-import dconfig "github.com/uber/cherami-server/common/dconfigclient"
+import dconfig "github.com/valdezm/cherami-server/common/dconfigclient"
 
 func (h *OutputHost) registerInt() {
 	// Add handler function for the dynamic config value

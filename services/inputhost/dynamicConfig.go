@@ -21,8 +21,8 @@
 package inputhost
 
 import (
-	"github.com/uber/cherami-server/common"
-	dconfig "github.com/uber/cherami-server/common/dconfigclient"
+	"github.com/valdezm/cherami-server/common"
+	dconfig "github.com/valdezm/cherami-server/common/dconfigclient"
 )
 
 const (

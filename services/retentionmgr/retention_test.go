@@ -34,9 +34,9 @@ import (
 	"time"
 
 	// "github.com/stretchr/testify/assert"
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/common/configure"
-	"github.com/uber/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/common/configure"
+	"github.com/valdezm/cherami-server/common/metrics"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 	"github.com/uber/cherami-thrift/.generated/go/store"
 

@@ -2,7 +2,7 @@
 
 SHELL = /bin/bash
 
-PROJECT_ROOT=github.com/uber/cherami-server
+PROJECT_ROOT=github.com/valdezm/cherami-server
 INTEG_TEST_ROOT=./test
 TOOLS_ROOT=./tools
 export GO15VENDOREXPERIMENT=1

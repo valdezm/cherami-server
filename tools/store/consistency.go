@@ -33,9 +33,9 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/tecbot/gorocksdb"
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/storage/manyrocks"
-	toolscommon "github.com/uber/cherami-server/tools/common"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/storage/manyrocks"
+	toolscommon "github.com/valdezm/cherami-server/tools/common"
 	"github.com/uber/cherami-thrift/.generated/go/metadata"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 )

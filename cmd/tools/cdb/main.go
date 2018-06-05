@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/uber/cherami-server/storage"
-	"github.com/uber/cherami-server/storage/manyrocks"
+	"github.com/valdezm/cherami-server/storage"
+	"github.com/valdezm/cherami-server/storage/manyrocks"
 )
 
 type arguments struct {

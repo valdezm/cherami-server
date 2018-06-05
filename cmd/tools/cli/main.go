@@ -25,7 +25,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/uber/cherami-client-go/client/cherami"
-	lib "github.com/uber/cherami-server/cmd/tools/common"
+	lib "github.com/valdezm/cherami-server/cmd/tools/common"
 )
 
 const (

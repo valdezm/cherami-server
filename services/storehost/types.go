@@ -23,8 +23,8 @@ package storehost
 import (
 	"math"
 
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/storage"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/storage"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 	"github.com/uber/cherami-thrift/.generated/go/store"
 

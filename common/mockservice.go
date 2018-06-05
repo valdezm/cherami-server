@@ -23,9 +23,9 @@ package common
 import (
 	"net/http"
 
-	"github.com/uber/cherami-server/common/configure"
-	dconfig "github.com/uber/cherami-server/common/dconfigclient"
-	"github.com/uber/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/common/configure"
+	dconfig "github.com/valdezm/cherami-server/common/dconfigclient"
+	"github.com/valdezm/cherami-server/common/metrics"
 
 	"github.com/stretchr/testify/mock"
 	"github.com/uber/tchannel-go"

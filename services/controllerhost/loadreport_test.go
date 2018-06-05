@@ -31,8 +31,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/services/controllerhost/load"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/services/controllerhost/load"
 	c "github.com/uber/cherami-thrift/.generated/go/controller"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 )

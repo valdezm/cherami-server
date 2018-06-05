@@ -21,7 +21,7 @@
 package storehost
 
 import (
-	serverStream "github.com/uber/cherami-server/stream"
+	serverStream "github.com/valdezm/cherami-server/stream"
 	"github.com/uber/cherami-thrift/.generated/go/store"
 
 	"github.com/stretchr/testify/mock"

@@ -28,8 +28,8 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/stream"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/stream"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 	"github.com/uber/cherami-thrift/.generated/go/store"
 )

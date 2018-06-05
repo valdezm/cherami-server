@@ -30,9 +30,9 @@ import (
 	"time"
 
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/common/metrics"
-	"github.com/uber/cherami-server/services/retentionmgr"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/services/retentionmgr"
 	"github.com/uber/cherami-thrift/.generated/go/metadata"
 )
 

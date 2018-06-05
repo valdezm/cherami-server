@@ -24,8 +24,8 @@ import (
 	"time"
 
 	"github.com/pborman/uuid"
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/common/metrics"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 )
 

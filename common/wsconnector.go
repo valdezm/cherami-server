@@ -28,7 +28,7 @@ import (
 	"github.com/uber/cherami-client-go/common"
 	"github.com/uber/cherami-client-go/common/websocket"
 	"github.com/uber/cherami-client-go/stream"
-	serverStream "github.com/uber/cherami-server/stream"
+	serverStream "github.com/valdezm/cherami-server/stream"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 	"github.com/uber/cherami-thrift/.generated/go/store"
 )

@@ -21,10 +21,10 @@
 FROM golang:1.7.4
 
 # get and compile cherami-server
-ENV CHERAMI_HOME $GOPATH/src/github.com/uber/cherami-server
+ENV CHERAMI_HOME $GOPATH/src/github.com/valdezm/cherami-server
 
 RUN go get -u github.com/Masterminds/glide
-RUN git clone --depth=50 https://github.com/uber/cherami-server.git $CHERAMI_HOME
+RUN git clone --depth=50 https://github.com/valdezm/cherami-server.git $CHERAMI_HOME
 RUN cd $CHERAMI_HOME; make bins
 
 EXPOSE 4922 4253 4240 4254 5425 6280 6189 6190 6191 6310

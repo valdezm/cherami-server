@@ -46,10 +46,10 @@ ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 
 # get and compile cherami-server
-ENV CHERAMI_HOME $GOPATH/src/github.com/uber/cherami-server
+ENV CHERAMI_HOME $GOPATH/src/github.com/valdezm/cherami-server
 
 RUN go get -u github.com/Masterminds/glide
-RUN git clone --depth=50 https://github.com/uber/cherami-server.git $CHERAMI_HOME
+RUN git clone --depth=50 https://github.com/valdezm/cherami-server.git $CHERAMI_HOME
 RUN cd $CHERAMI_HOME; make bins
 
 VOLUME /var/lib/cherami-store

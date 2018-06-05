@@ -26,10 +26,10 @@ import (
 
 	"github.com/uber-common/bark"
 
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/common/metrics"
-	"github.com/uber/cherami-server/services/outputhost/load"
-	storeStream "github.com/uber/cherami-server/stream"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/services/outputhost/load"
+	storeStream "github.com/valdezm/cherami-server/stream"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 	"github.com/uber/cherami-thrift/.generated/go/store"

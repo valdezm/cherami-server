@@ -24,8 +24,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/uber/cherami-server/services/storehost/load"
-	"github.com/uber/cherami-server/storage"
+	"github.com/valdezm/cherami-server/services/storehost/load"
+	"github.com/valdezm/cherami-server/storage"
 	"github.com/uber/cherami-thrift/.generated/go/store"
 )
 

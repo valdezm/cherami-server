@@ -21,7 +21,7 @@
 package dconfigclient
 
 import (
-	"github.com/uber/cherami-server/common/configure"
+	"github.com/valdezm/cherami-server/common/configure"
 )
 
 // DconfigClient is the struct which implements the ClientInt interface

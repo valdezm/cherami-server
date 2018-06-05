@@ -21,7 +21,7 @@
 package metadata
 
 import (
-	mock "github.com/uber/cherami-server/test/mocks/metadata"
+	mock "github.com/valdezm/cherami-server/test/mocks/metadata"
 	m "github.com/uber/cherami-thrift/.generated/go/metadata"
 )
 

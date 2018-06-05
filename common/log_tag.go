@@ -27,7 +27,7 @@ import (
 	"time"
 
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/common/metrics"
 	"github.com/uber/cherami-thrift/.generated/go/admin"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 )

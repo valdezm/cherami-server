@@ -35,8 +35,8 @@ import (
 	"github.com/pborman/uuid"
 	"github.com/tecbot/gorocksdb"
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
-	s "github.com/uber/cherami-server/storage"
+	"github.com/valdezm/cherami-server/common"
+	s "github.com/valdezm/cherami-server/storage"
 
 	"github.com/sirupsen/logrus"
 )

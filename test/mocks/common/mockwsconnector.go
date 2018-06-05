@@ -24,7 +24,7 @@ import "github.com/stretchr/testify/mock"
 
 import "net/http"
 
-import serverStream "github.com/uber/cherami-server/stream"
+import serverStream "github.com/valdezm/cherami-server/stream"
 
 import clientStream "github.com/uber/cherami-client-go/stream"
 

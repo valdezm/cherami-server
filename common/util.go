@@ -41,8 +41,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common/configure"
-	"github.com/uber/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/common/configure"
+	"github.com/valdezm/cherami-server/common/metrics"
 	"github.com/uber/cherami-thrift/.generated/go/admin"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 	"github.com/uber/cherami-thrift/.generated/go/shared"

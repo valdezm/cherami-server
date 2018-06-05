@@ -3,7 +3,7 @@ package main
 import (
 	"math"
 
-	"github.com/uber/cherami-server/storage"
+	"github.com/valdezm/cherami-server/storage"
 	"github.com/uber/cherami-thrift/.generated/go/store"
 
 	"github.com/apache/thrift/lib/go/thrift"

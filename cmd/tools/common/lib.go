@@ -25,9 +25,9 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/uber/cherami-client-go/client/cherami"
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/tools/admin"
-	toolscommon "github.com/uber/cherami-server/tools/common"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/tools/admin"
+	toolscommon "github.com/valdezm/cherami-server/tools/common"
 )
 
 const (

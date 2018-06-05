@@ -21,7 +21,7 @@
 package main
 
 import (
-	"github.com/uber/cherami-server/cmd/servicecmd"
+	"github.com/valdezm/cherami-server/cmd/servicecmd"
 )
 
 func main() {

@@ -31,9 +31,9 @@ import (
 	"time"
 
 	"github.com/codegangsta/cli"
-	mcli "github.com/uber/cherami-server/clients/metadata"
-	"github.com/uber/cherami-server/common"
-	toolscommon "github.com/uber/cherami-server/tools/common"
+	mcli "github.com/valdezm/cherami-server/clients/metadata"
+	"github.com/valdezm/cherami-server/common"
+	toolscommon "github.com/valdezm/cherami-server/tools/common"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 	"github.com/uber/cherami-thrift/.generated/go/metadata"
 	"github.com/uber/cherami-thrift/.generated/go/shared"

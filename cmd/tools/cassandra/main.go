@@ -24,7 +24,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/uber/cherami-server/tools/cassandra"
+	"github.com/valdezm/cherami-server/tools/cassandra"
 )
 
 const (

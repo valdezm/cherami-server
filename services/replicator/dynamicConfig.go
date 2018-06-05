@@ -21,7 +21,7 @@
 package replicator
 
 import (
-	dconfig "github.com/uber/cherami-server/common/dconfigclient"
+	dconfig "github.com/valdezm/cherami-server/common/dconfigclient"
 )
 
 const (

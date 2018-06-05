@@ -26,11 +26,11 @@ import (
 	"time"
 
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
-	"github.com/uber/cherami-server/common/metrics"
-	"github.com/uber/cherami-server/common/throttler"
-	"github.com/uber/cherami-server/services/inputhost/load"
-	serverStream "github.com/uber/cherami-server/stream"
+	"github.com/valdezm/cherami-server/common"
+	"github.com/valdezm/cherami-server/common/metrics"
+	"github.com/valdezm/cherami-server/common/throttler"
+	"github.com/valdezm/cherami-server/services/inputhost/load"
+	serverStream "github.com/valdezm/cherami-server/stream"
 	"github.com/uber/cherami-thrift/.generated/go/cherami"
 )
 

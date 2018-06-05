@@ -28,7 +28,7 @@ import (
 
 	"github.com/pborman/uuid"
 	"github.com/uber-common/bark"
-	"github.com/uber/cherami-server/common"
+	"github.com/valdezm/cherami-server/common"
 	"github.com/uber/cherami-thrift/.generated/go/metadata"
 	"github.com/uber/cherami-thrift/.generated/go/shared"
 )

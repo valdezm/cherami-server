@@ -28,7 +28,7 @@ import (
 	"github.com/pborman/uuid"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"github.com/uber/cherami-server/common"
+	"github.com/valdezm/cherami-server/common"
 )
 
 type (
