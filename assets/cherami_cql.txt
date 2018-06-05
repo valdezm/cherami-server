@@ -1,0 +1,462 @@
+
+CREATE KEYSPACE cherami WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}  AND durable_writes = true;
+
+CREATE TYPE cherami.consumer_group_zone_config (
+    zone text,
+    visible boolean
+);
+
+CREATE TYPE cherami.consumer_group (
+    uuid uuid,
+    destination_uuid uuid,
+    name text,
+    start_from bigint,
+    status int,
+    lock_timeout_seconds int,
+    max_delivery_count int,
+    skip_older_messages_seconds int,
+    delay_seconds int,
+    dead_letter_queue_destination_uuid uuid,
+    owner_email text,
+    is_multi_zone boolean,
+    active_zone text,
+    zone_configs list<frozen<consumer_group_zone_config>>,
+    options map<text, text>
+);
+
+CREATE TYPE cherami.destination_zone_config (
+    zone text,
+    allow_publish boolean,
+    allow_consume boolean,
+    always_replicate_to boolean,
+    remote_extent_replica_num int
+);
+
+CREATE TYPE cherami.destination (
+    uuid uuid,
+    path text,
+    type int,
+    status int,
+    consumed_messages_retention int,
+    unconsumed_messages_retention int,
+    owner_email text,
+    checksum_option int,
+    is_multi_zone boolean,
+    zone_configs list<frozen<destination_zone_config>>,
+    schema_version int,
+    options map<text, text>
+);
+
+CREATE TYPE cherami.extent (
+    uuid uuid,
+    destination_uuid uuid,
+    store_uuids set<uuid>,
+    input_host_uuid uuid,
+    status int,
+    archival_location text,
+    origin_zone text,
+    remote_extent_primary_store text
+);
+
+CREATE TYPE cherami.extent_replica_stats (
+    extent_uuid uuid,
+    store_uuid uuid,
+    destination_uuid uuid,
+    status int,
+    store text,
+    store_version text,
+    begin_address bigint,
+    begin_sequence bigint,
+    available_address bigint,
+    available_sequence bigint,
+    available_sequence_rate double,
+    last_address bigint,
+    last_sequence bigint,
+    last_sequence_rate double,
+    created_time timestamp,
+    begin_time timestamp,
+    end_time timestamp,
+    begin_enqueue_time timestamp,
+    last_enqueue_time timestamp,
+    size_in_bytes bigint,
+    size_in_bytes_rate double
+);
+
+CREATE TYPE cherami.user_info (
+    user_name text,
+    user_email text
+);
+
+CREATE TABLE cherami.destination_extents (
+    destination_uuid uuid,
+    extent_uuid uuid,
+    consumer_group_visibility uuid,
+    created_time timestamp,
+    extent frozen<extent>,
+    origin_zone text,
+    replica_stats map<uuid, frozen<extent_replica_stats>>,
+    status int,
+    status_updated_time timestamp,
+    PRIMARY KEY (destination_uuid, extent_uuid)
+) WITH CLUSTERING ORDER BY (extent_uuid ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+CREATE INDEX destination_extents_created_time_idx ON cherami.destination_extents (created_time);
+CREATE INDEX destination_extents_origin_zone_idx ON cherami.destination_extents (origin_zone);
+CREATE INDEX destination_extents_status_idx ON cherami.destination_extents (status);
+
+CREATE TABLE cherami.input_host_extents (
+    input_host_uuid uuid,
+    destination_uuid uuid,
+    extent_uuid uuid,
+    created_time timestamp,
+    extent frozen<extent>,
+    replica_stats map<uuid, frozen<extent_replica_stats>>,
+    status int,
+    PRIMARY KEY (input_host_uuid, destination_uuid, extent_uuid)
+) WITH CLUSTERING ORDER BY (destination_uuid ASC, extent_uuid ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+CREATE INDEX input_host_extents_created_time_idx ON cherami.input_host_extents (created_time);
+CREATE INDEX input_host_extents_status_idx ON cherami.input_host_extents (status);
+
+CREATE TABLE cherami.host_info (
+    hostname text,
+    key text,
+    value text,
+    PRIMARY KEY (hostname, key)
+) WITH CLUSTERING ORDER BY (key ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+CREATE TABLE cherami.consumer_groups_by_name (
+    destination_uuid uuid,
+    name text,
+    consumer_group frozen<consumer_group>,
+    is_multi_zone boolean,
+    PRIMARY KEY (destination_uuid, name)
+) WITH CLUSTERING ORDER BY (name ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+CREATE INDEX consumer_groups_by_name_is_multi_zone_idx ON cherami.consumer_groups_by_name (is_multi_zone);
+
+CREATE TABLE cherami.consumer_groups (
+    uuid uuid PRIMARY KEY,
+    consumer_group frozen<consumer_group>,
+    destination_uuid uuid,
+    is_multi_zone boolean
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+CREATE INDEX consumer_groups_is_multi_zone_idx ON cherami.consumer_groups (is_multi_zone);
+CREATE INDEX consumer_groups_destination_uuid_idx ON cherami.consumer_groups (destination_uuid);
+
+CREATE TABLE cherami.uuid_to_host_addr (
+    uuid uuid PRIMARY KEY,
+    hostaddr text,
+    hostname text
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+CREATE TABLE cherami.user_operations_by_entity_uuid (
+    entity_uuid uuid,
+    entity_type text,
+    operation_type text,
+    operation_time timestamp,
+    caller_host_name text,
+    caller_service_name text,
+    entity_name text,
+    initiator frozen<user_info>,
+    operation_content text,
+    PRIMARY KEY (entity_uuid, entity_type, operation_type, operation_time)
+) WITH CLUSTERING ORDER BY (entity_type ASC, operation_type ASC, operation_time ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+CREATE TABLE cherami.service_config (
+    cluster text,
+    service_name text,
+    service_version text,
+    sku text,
+    hostname text,
+    config_key text,
+    config_value text,
+    PRIMARY KEY (cluster, service_name, service_version, sku, hostname, config_key)
+) WITH CLUSTERING ORDER BY (service_name ASC, service_version ASC, sku ASC, hostname ASC, config_key ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+CREATE TABLE cherami.consumer_group_extents (
+    consumer_group_uuid uuid,
+    extent_uuid uuid,
+    ack_level_offset bigint,
+    ack_level_sequence bigint,
+    ack_level_sequence_rate double,
+    connected_store uuid,
+    output_host_uuid uuid,
+    received_level_offset bigint,
+    received_level_sequence bigint,
+    received_level_sequence_rate double,
+    status int,
+    store_uuids set<uuid>,
+    PRIMARY KEY (consumer_group_uuid, extent_uuid)
+) WITH CLUSTERING ORDER BY (extent_uuid ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+CREATE INDEX consumer_group_extents_status_idx ON cherami.consumer_group_extents (status);
+
+CREATE TABLE cherami.store_extents (
+    store_uuid uuid,
+    extent_uuid uuid,
+    created_time timestamp,
+    extent frozen<extent>,
+    replica_stats frozen<extent_replica_stats>,
+    replication_status int,
+    status int,
+    PRIMARY KEY (store_uuid, extent_uuid)
+) WITH CLUSTERING ORDER BY (extent_uuid ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+CREATE INDEX store_extents_created_time_idx ON cherami.store_extents (created_time);
+CREATE INDEX store_extents_status_idx ON cherami.store_extents (status);
+CREATE INDEX store_extents_replication_status_idx ON cherami.store_extents (replication_status);
+
+CREATE TABLE cherami.destination_schema (
+    destination_uuid text,
+    version int,
+    created_time timestamp,
+    data text,
+    source text,
+    type text,
+    PRIMARY KEY (destination_uuid, version)
+) WITH CLUSTERING ORDER BY (version ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+CREATE TABLE cherami.host_addr_to_uuid (
+    hostaddr text PRIMARY KEY,
+    hostname text,
+    uuid uuid
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+CREATE TABLE cherami.user_operations_by_entity_name (
+    entity_name text,
+    entity_type text,
+    operation_type text,
+    operation_time timestamp,
+    caller_host_name text,
+    caller_service_name text,
+    entity_uuid uuid,
+    initiator frozen<user_info>,
+    operation_content text,
+    PRIMARY KEY (entity_name, entity_type, operation_type, operation_time)
+) WITH CLUSTERING ORDER BY (entity_type ASC, operation_type ASC, operation_time ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+
+CREATE TABLE cherami.destinations_by_path (
+    directory_uuid uuid,
+    path text,
+    destination frozen<destination>,
+    is_multi_zone boolean,
+    kafka_cluster text,
+    kafka_topics set<text>,
+    PRIMARY KEY (directory_uuid, path)
+) WITH CLUSTERING ORDER BY (path ASC)
+    AND bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+CREATE INDEX destinations_by_path_is_multi_zone_idx ON cherami.destinations_by_path (is_multi_zone);
+
+CREATE TABLE cherami.destinations (
+    uuid uuid PRIMARY KEY,
+    destination frozen<destination>,
+    dlq_consumer_group uuid,
+    dlq_merge_before timestamp,
+    dlq_purge_before timestamp,
+    is_multi_zone boolean,
+    kafka_cluster text,
+    kafka_topics set<text>
+) WITH bloom_filter_fp_chance = 0.01
+    AND caching = {'keys': 'ALL', 'rows_per_partition': 'NONE'}
+    AND comment = ''
+    AND compaction = {'class': 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy', 'max_threshold': '32', 'min_threshold': '4'}
+    AND compression = {'chunk_length_in_kb': '64', 'class': 'org.apache.cassandra.io.compress.LZ4Compressor'}
+    AND crc_check_chance = 1.0
+    AND dclocal_read_repair_chance = 0.1
+    AND default_time_to_live = 0
+    AND gc_grace_seconds = 864000
+    AND max_index_interval = 2048
+    AND memtable_flush_period_in_ms = 0
+    AND min_index_interval = 128
+    AND read_repair_chance = 0.0
+    AND speculative_retry = '99PERCENTILE';
+CREATE INDEX destinations_is_multi_zone_idx ON cherami.destinations (is_multi_zone);
+

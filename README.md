@@ -17,6 +17,20 @@ Built on Ubuntu:
 GCC version:
 `gcc version 4.8.4 (Ubuntu 4.8.4-2ubuntu1~14.04.3)` [`issue with GCC 4.8.4 and stdatomic.h`](https://github.com/uber/cherami-server/issues/350)
 
+![alt text](assets/stdatomic_error.png "stdatomic.h problem with GCC 4.8.4")
+
+Remove the following lines in order to get it to build, which I have and it is now running..
+from jemalloc_internal.h
+in:
+'vendor\github.com\cockroachdb\c-jemalloc\linux_includes\internal\include\jemalloc\internal'
+
+removed(lines 145-147):
+#ifdef JEMALLOC_C11ATOMICS
+#include <stdatomic.h>
+#endif
+
+reference: https://stackoverflow.com/questions/20326604/stdatomic-h-in-gcc-4-8
+
 To get cherami-server:
 
 ```
@@ -57,6 +71,13 @@ One can use the CLI to verify if Cherami is running properly:
 ```
 ./cherami-cli --env=prod --hostport=127.0.0.1:4922 create destination /test/cherami
 ```
+
+
+Cherami keyspace
+----------------
+I dumped the keyspace to this file: [`cherami_cql.txt`](assets/cherami_cql.txt)
+
+
 
 Deploy Cherami as a cluster
 ---------------------------
